@@ -13,6 +13,16 @@ git push origin main            # 2. Now push your work on top
 
 
 
+############################
+#find existing .git
+find ~ -type d -name ".git" 2>/dev/null
+
+
+##########################
+#pull sequence
+1st time 
+git clone https://github.com/socratesreyes/Linux-Systems-Administration
+## update local repo
 
 
 

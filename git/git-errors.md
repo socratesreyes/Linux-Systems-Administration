@@ -40,3 +40,15 @@ Total 12 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
 To https://github.com/socratesreyes/Linux-Systems-Administration.git
  + 915678b...4b49fc3 main -> main (forced update)
 branch 'main' set up to track 'origin/main'.
+
+
+
+
+
+
+###############################
+###git push error folder undo git add.
+git status
+
+git reset
+
