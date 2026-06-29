@@ -1,0 +1,42 @@
+basic issues with solutions
+
+########
+# docker compose
+
+This error indicates that Docker is trying to download the adminer image using an IPv6 address,
+
+~/docker-lab$ docker compose up -d
+WARN[0000] /home/soc/docker-lab/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
+[+] up 16/19
+ ⠇ Image adminer [⣿⣿⡀⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿] 16.01MB / 46.03MB Pulling                                                                                         189.8s
+failed to copy: read tcp [2405:8d40:4878:8408:7565:49f:42b3:e5cc]:58729->[2600:9000:289a:fe00:9:4855:aac0:93a1]:443: read: network is unreachable
+
+
+## SOLUTION
+
+Force your DNS to use IPv4
+
+bash
+sudo nano /etc/resolv.conf
+#replace
+nameserver 8.8.8.8
+
+#then run 
+docker compose up -d
+
+####################################
+
+##port 8080 is in use
+
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint
+ docker-lab-web-1 (b4a851f7e08dbdbd0ad45f6e863f77cda9028c050b92f7912af541eb87edfb4e): Bind for 0.0.0.0:8080 failed: port is already allocated
+SOLUTION
+
+#FILTER COMMAND IDENTIFY WHICH CONTAINER
+docker ps -a --filter "publish=8080"
+
+##STOP TEMP THE CONTAINER
+
+docker stop <old_container_name_or_id>
+
+docker compose up -d

@@ -38,6 +38,13 @@ sudo systemctl disable --now nagios.service			### prevent auto start of service 
 sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
+#######################################################
+
+#process
+ps aux | grep nano
+
+#for example PID neeeds to be killed
+kill -9 1117
 
 
 

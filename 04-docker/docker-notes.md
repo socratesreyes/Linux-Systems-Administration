@@ -76,3 +76,11 @@ cat /etc/nginx/nginx.conf
 exit  # Exit the container
 
 
+
+
+####################################
+
+#start all
+
+docker start $(docker ps -a -q)
+
