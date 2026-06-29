@@ -23,7 +23,7 @@ find ~ -type d -name ".git" 2>/dev/null
 1st time 
 git clone https://github.com/socratesreyes/Linux-Systems-Administration
 ## update local repo
-
+git pull
 
 
 

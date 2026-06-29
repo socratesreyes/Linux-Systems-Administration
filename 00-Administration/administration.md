@@ -30,3 +30,21 @@ sudo firewall-cmd --permanent --remove-rich-rule='rule family="ipv4" source addr
 
 sudo systemctl disable --now nagios.service			### prevent auto start of service + stop now
 
+############################################
+
+#permission issue security group. user dont have permission
+
+ 
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+
+
+
+
+
+
+
+
+
