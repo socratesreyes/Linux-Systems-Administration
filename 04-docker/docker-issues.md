@@ -40,3 +40,19 @@ docker ps -a --filter "publish=8080"
 docker stop <old_container_name_or_id>
 
 docker compose up -d
+
+
+
+
+###########
+
+
++] up 6/28
+ ⠴ Image redis:alpine                                  Pulling                                                                                           13.5s
+ ✘ Image nginx:alpine                                  Error failed to resolve reference "docker.io/library/nginx:alpine": failed to authorize:...       13.5s
+ ! Image prom/prometheus                               Interrupted                                                                                       13.5s
+ ⠴ Image mysql:8.0                                     Pulling                                                                                           13.5s
+ ! Image php:8.1-fpm                                   Interrupted                                                                                       13.5s
+ ⠴ Image phpmyadmin/phpmyadmin [⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀] Pulling                                                                                           13.5s
+ ! Image grafana/grafana                               Interrupted                                                                                       13.5s
+Error response from daemon: failed to resolve reference "docker.io/library/nginx:alpine": failed to authorize: failed to fetch anonymous token: Get "https://auth.docker.io/token?scope=repository%3Alibrary%2Fnginx%3Apull&service=registry.docker.io": net/http: TLS handshake timeout

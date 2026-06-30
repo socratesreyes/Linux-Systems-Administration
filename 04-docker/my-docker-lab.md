@@ -212,3 +212,124 @@ docker-compose ps
 docker-compose logs web
 
 
+###############################################
+##LAB 2 Set up a complete LAMP stack with Docker Compose
+
+#Install and configure Kind (Kubernetes in Docker)
+
+#Deploy your first pod, deployment, and service#
+
+
+Create a Complete LAMP Stack with Docker Compose
+bash
+cd ~/docker-lab/
+
+# Create a more complete docker-compose.yml
+cat > docker-compose-full.yml << 'EOF'
+version: '3.8'
+
+services:
+  # Web Server
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx-html:/usr/share/nginx/html
+      - ./nginx-conf:/etc/nginx/conf.d
+    depends_on:
+      - php
+      - db
+    networks:
+      - app-network
+
+  # PHP-FPM
+  php:
+    image: php:8.1-fpm
+    volumes:
+      - ./nginx-html:/var/www/html
+    networks:
+      - app-network
+
+  # Database
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: securepassword123
+      MYSQL_DATABASE: myapp
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppassword123
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+    ports:
+      - "3306:3306"
+
+  # phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  # Redis Cache
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+  # Prometheus (for monitoring)
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - app-network
+
+  # Grafana (for dashboards)
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana-data:/var/lib/grafana
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+EOF
+
+
+
+########### Create the Prometheus Configuration
+
+cat > prometheus.yml << 'EOF'
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'node'
+    static_configs:
+      - targets: ['localhost:9100']
+
+  - job_name: 'docker'
+    static_configs:
+      - targets: ['localhost:9323']
+EOF
+
+
+

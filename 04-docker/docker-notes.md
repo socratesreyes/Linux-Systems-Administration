@@ -9,6 +9,17 @@
 | `docker rm -f <id>` | Remove container |
 | `docker system prune -a -f` | Cleanup unused |
 
+
+####################################
+
+#start all
+
+docker start $(docker ps -a -q)
+
+
+
+
+
 ## 📂 Important Paths
 | Path | Purpose |
 |------|---------|
@@ -80,7 +91,27 @@ exit  # Exit the container
 
 ####################################
 
-#start all
+#docker compose 
 
-docker start $(docker ps -a -q)
+docker-compose up -d   # Start
+docker-compose down    # Stop
+docker-compose logs    # View logs
+docker-compose ps      # Check status
+
+
+Troubleshooting Skills:
+docker logs <container> 	is your best friend
+
+docker inspect			 for detailed info
+
+docker stats 			for resource usage
+
+docker system df		 to check disk usage
+
+
+
+###################################################
+
+
+
 
